@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 구글 아이콘 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<style>
+    html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline; } 
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {display: block; } 
+body {line-height: 1; } 
+ol, ul {list-style: none; } 
+blockquote, q {quotes: none; } 
+blockquote:before, blockquote:after,
+q:before, q:after {content: '';content: none; } 
+table {border-collapse: collapse;border-spacing: 0; } 
+.image-gallery {
+display: flex;
+flex-wrap: wrap;
+justify-content: center; /* 중앙 정렬을 유지합니다. */
+margin-left: -5px; /* 좌우 마진의 합을 상쇄하기 위해 조정합니다. */
+margin-right: -5px; /* 좌우 마진의 합을 상쇄하기 위해 조정합니다. */
+}
+
+.image-item {
+flex: 0 0 calc(33.333% - 6px); /* 여기서 -6px는 좌우 마진을 고려한 조정입니다. */
+margin: 5px; /* 이미지 아이템 간의 간격을 조정합니다. */
+box-sizing: border-box; /* 너비 계산에 패딩과 테두리를 포함합니다. */
+}
+
+
+    body{background: #000;}
+    header{height: 50px; background: #000; display: flex; align-items: center;}
+
+    /* 공통 CSS */
+    .widthCalc{width: calc(100% - 20px); margin: auto;}
+    p{color: #fff;}
+    span{color: #fff;}
+    button{ background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer; color: #fff;}
+
+    header .headerContent {color: #fff; display: flex; align-items: center; justify-content: space-between;}
+
+
+.btn, .btn-icon {
+color: #fff; /* 글자색을 흰색으로 설정 */
+background-color: #333; /* 버튼 배경색을 어두운 회색으로 설정 */
+border: none; /* 테두리 없애기 */
+border-radius: 5px; /* 모서리 둥글게 설정 */
+padding: 10px 20px; /* 내부 패딩 */
+font-size: 16px; /* 글자 크기 설정 */
+cursor: pointer; /* 마우스 커서를 포인터로 설정 */
+outline: none; /* 클릭 시 생기는 외곽선 제거 */
+}
+
+.btn-icon {
+padding: 10px; /* 아이콘 버튼의 패딩을 조정 */
+font-size: 24px; /* 아이콘 크기를 더 크게 설정 */
+}
+
+.material-symbols-outlined {
+
+font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+/* 아이콘 스타일 설정 */
+}
+
+/* 버튼 간 간격 조정 */
+.btn:not(:last-child) {
+margin-right: 10px;
+}
+
+
+
+    
+    /* 프로필 부분 */
+    .profileContent{ display: flex; align-items: center;justify-content: space-around;     margin-bottom: 15px;}
+    .profileContent .imgContent{width: 100px; height: 100px; background: #fff; border-radius: 50px;}
+    .profileContent .textContent{display: flex; align-items: center; justify-content: space-around;   width: 50%; flex-direction: row; }
+    .profileContent .textContent .text{display: flex; flex-direction: column; align-items: center;}
+
+    .profileContentInfo .textlink{color: #b4b4cd;}
+    .profileContentInfo .userProfile {display: flex; align-items: center;}
+    .profileContentInfo .userProfile .userProfileImg{ width: 20px; height: 20px; border-radius: 50px; background: #fff; margin-right: 10px;}
+
+    /* 버튼 */
+    .btnContent { display: flex; align-items: center; justify-content: space-between;}
+    .btnContent .btn{width: 50%; }
+
+    /* 하이라이트 이미지 */
+    .highlightContent {
+        height: 90px;
+overflow-x: auto; /* 가로 스크롤 활성화 */
+display: flex;
+align-items: center;
+gap: 20px;
+padding-left: 10px; /* 첫 항목과 왼쪽 가장자리 간의 간격 */
+padding-right: 10px; /* 마지막 항목이 반만 보일 수 있도록 오른쪽 패딩 추가 */
+width: calc(100% - 20px); /* 컨테이너 전체 너비에서 스크롤 바 너비 고려 */
+}
+
+.highlightContentWrap {
+flex: 0 0 auto; /* 항목들이 축소되거나 확장되지 않도록 설정 */
+width: 20%; /* 각 항목의 너비를 전체의 20%로 설정하여 5개가 딱 맞게 조정. 필요에 따라 조절 */
+}
+
+    .highlightContent {display: flex;
+        width: 100%;
+align-items: center;
+gap: 20px;}
+    .highlightContent .highlightContentWrap {width: 75px;     display: flex;
+flex-direction: column;
+align-items: center;
+gap: 10px;}
+    .highlightContent .highlightContentWrap .imgContent{width: 60px; height: 60px; background: #fff; border-radius: 50px}
+
+
+    .button-container {
+display: flex; /* 플렉스박스 레이아웃 적용 */
+justify-content: center; /* 가로축 가운데 정렬 */
+align-items: center; /* 세로축 가운데 정렬 */
+height: 100%; /* 부모 요소의 높이에 맞게 설정 */
+background: #000; /* 배경색 검정 */
+}
+
+.button {
+flex: 1; /* 모든 버튼이 컨테이너의 너비를 균등하게 차지하도록 설정 */
+color: #fff; /* 아이콘 색상 흰색 */
+background-color: transparent; /* 배경색 투명 */
+border: none; /* 테두리 없음 */
+padding: 10px; /* 적당한 패딩 */
+font-size: 24px; /* 아이콘 크기 */
+cursor: pointer; /* 마우스 오버 시 포인터 */
+}
+.adadadad{
+border-bottom: 1px solid #fff;
+}
+.material-symbols-outlined {
+/* 필요에 따라 추가 스타일 지정 */
+}
+.image-gallery {
+display: flex;
+flex-wrap: wrap;
+justify-content: center; /* 중앙 정렬을 위해 추가 */
+margin-left: -13px;
+margin-right: -13px;
+overflow: hidden;
+}
+
+.image-item {
+flex: 0 0 calc(33.333% - 10px); /* 각 이미지 항목의 기본 크기를 계산 */
+margin: 1px; /* 갭을 설정 */
+box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+}
+
+.image-item img {
+width: 100%;
+height: auto;
+display: block;
+}
+footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background: #000; /* 필요에 따라 배경색 설정 */
+color: #fff; /* 텍스트 색상 */
+text-align: center; /* 텍스트 중앙 정렬 */
+padding: 10px 0; /* 상하 패딩 */
+}
+.highlightContent {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.highlightContent::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
+</style>
+<body >
+
+    <!-- Modal -->
+    <div class="modal modal-alert position-static py-5" tabindex="-1" role="dialog" id="modalChoice" style="display: block; height: 100vh;">
+        <div class="modal-dialog" role="document" style="top: 30%;">
+            <div class="modal-content rounded-4 shadow" style="border-radius: 0 !important;">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">오늘 생일이신가요?</h5>
+                    <p class="mb-0">생일이시라면 Yes 버튼을 눌러 주세요!</p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button" id="yesButton" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right" style="background: #fff; color: #000;"><strong>Yes</strong></button>
+                    <button type="button" id="noButton" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal"style="background: #fff; color: #000;">No</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="spinner-border text-primary" role="status" style="display:none; position: fixed; left: 45%; top: 46%;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <div class="noText" style="display:none;">
+
+        <div  style="max-width: 500px; margin: auto;">
+        
+            <header>
+                <div class="headerContent widthCalc">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios
+                        </span>
+                    <span>happy_birthday</span>
+                    <div class="rightContent">
+                        <span class="material-symbols-outlined">
+                            notifications
+                        </span>
+                        <span class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                    </div>
+                </div>
+            </header>
+        
+            <div class="profileContent widthCalc">
+                <div class="imgContent"><img src=" ./img/woong.png" style="object-fit: cover; width: 100%;     border-radius: 100px;" ></div>
+                <div class="textContent">
+                    <div class="text">
+                        <p>486</p>
+                        <p>게시물</p>
+                    </div>
+                    <div class="text">
+                        <p>99.9m</p>
+                        <p>팔로워</p>
+                    </div>
+                    <div class="text">
+                        <p>1</p>
+                        <p>팔로잉</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="profileContentInfo widthCalc" style="gap: 10px;
+            display: flex;
+            flex-direction: column; margin-bottom: 10px;">
+                <p>° 𐐪𐑂 ♡ 𐐪𐑂 ㅇㅈㅇ 𐐪𐑂 ♡ 𐐪𐑂 °</p>
+                <p class="textlink">❤️@dhandluck❤️</p>
+                <div class="userProfile"><div class="userProfileImg"><img src=" ./img/do.png" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div> <span>dhandluck 님이 팔로우함</span></div>
+            </div>
+        
+            <div class="btnContent widthCalc" style="margin-bottom: 20px;">
+                <button class="btn">팔로잉</button>
+                <button class="btn">메시지</button>
+                <button><span class="material-symbols-outlined" style="background-color: #333;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 10px 20px;">
+                    group_add
+                    </span></button>
+            </div>
+        
+            <div class="highlightContent ">
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/a.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>😘</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/g.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>🥰</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/b.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;" ></div>
+                <p>😍</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/f.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>😚</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/c.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>🫶</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/d.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>🐶</p>
+               </div>
+               <div class="highlightContentWrap">
+                <div class="imgContent"><img src=" ./img/e.jpg" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+                <p>🐱</p>
+               </div>
+            </div>
+        
+        
+            <div class="button-container">
+                <button class="button adadadad"><span class="material-symbols-outlined">
+                    grid_on
+                    </span></button>
+             <button class="button" id="playButton"><span class="material-symbols-outlined">
+                play_circle
+                </span></button>
+                <button class="button"><span class="material-symbols-outlined">
+                    person
+                    </span></button>
+            </div>
+            
+        
+            <div class="image-gallery" id="imageGallery">
+            <div class="image-item"><img src=" ./img/25.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/26.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/27.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/28.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/29.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/30.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/31.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/32.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/33.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/34.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/35.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/36.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/37.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/38.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/39.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/16.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/17.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/18.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/19.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/20.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/21.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/22.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/23.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/24.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/1.jpg" alt="Image 1"></div>
+            <div class="image-item"><img src=" ./img/2.jpg" alt="Image 2"></div>
+            <div class="image-item"><img src=" ./img/3.jpg" alt="Image 3"></div>
+            <div class="image-item"><img src=" ./img/4.jpg" alt="Image 4"></div>
+            <div class="image-item"><img src=" ./img/5.jpg" alt="Image 5"></div>
+            <div class="image-item"><img src=" ./img/6.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/7.jpg" alt="Image 4"></div>
+            <div class="image-item"><img src=" ./img/8.jpg" alt="Image 5"></div>
+            <div class="image-item"><img src=" ./img/9.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/10.jpg" alt="Image 4"></div>
+            <div class="image-item"><img src=" ./img/11.jpg" alt="Image 5"></div>
+            <div class="image-item"><img src=" ./img/12.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src=" ./img/13.jpg" alt="Image 4"></div>
+            <div class="image-item"><img src=" ./img/14.jpg" alt="Image 5"></div>
+            <div class="image-item"><img src=" ./img/15.jpg" alt="Image 6"></div>
+            
+        </div>
+        
+        <footer style="display: flex;     display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: space-around;">
+            <div><span class="material-symbols-outlined">
+                home
+                </span></div>
+            <div><span class="material-symbols-outlined">
+                search
+                </span></div>
+            <div><span class="material-symbols-outlined">
+                add_box
+                </span></div>
+            <div><span class="material-symbols-outlined">
+        play_circle
+        </span></div>
+            <div class="imgContent" style="width: 30px; height: 30px; background: #fff; border-radius: 50px"><img src=" ./img/woong.png" style="object-fit: cover; width: 100%;  height: 100%;   border-radius: 100px;"></div>
+        </footer>
+        
+        </div>
+    </div>
+
+    <div class="yesText" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff;">
+생일 맞잖아 ㅠ
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('yesButton').addEventListener('click', function() {
+            const modal = document.getElementById('modalChoice');
+            const spinner = document.querySelector('.spinner-border');
+            const finalMessage = document.querySelector('.noText');
+            
+            modal.style.display = 'none'; 
+            spinner.style.display = 'block'; 
+            
+            setTimeout(() => {
+                spinner.style.display = 'none'; 
+                finalMessage.style.display = 'block'; 
+            }, 3000);
+        });
+        document.getElementById('noButton').addEventListener('click', function() {
+            const modal = document.getElementById('modalChoice');
+            const spinner = document.querySelector('.spinner-border');
+            const yesText = document.querySelector('.yesText');
+            
+            modal.style.display = 'none'; 
+            spinner.style.display = 'block'; 
+            
+            setTimeout(() => {
+                spinner.style.display = 'none'; 
+                yesText.style.display = 'block'; 
+            }, 3000);
+        });
+
+    </script>
+
+
+
+    
+</body>
+</html>
