@@ -216,7 +216,12 @@ padding: 10px 0; /* 상하 패딩 */
     <div class="spinner-border text-primary" role="status" style="display:none; position: fixed; left: 45%; top: 46%;">
         <span class="visually-hidden">Loading...</span>
     </div>
-
+<div class="yesyes" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff;">
+오늘 생일 아니잖아 ㅋㅋ
+</div>
+<div class="nono" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff;">
+  구로치 오늘 생일 아니지~
+  </div>
     <div class="noText" style="display:none;">
 
         <div  style="max-width: 500px; margin: auto;">
@@ -393,32 +398,56 @@ padding: 10px 0; /* 상하 패딩 */
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script>
-        document.getElementById('yesButton').addEventListener('click', function() {
-            const modal = document.getElementById('modalChoice');
-            const spinner = document.querySelector('.spinner-border');
-            const finalMessage = document.querySelector('.noText');
-            
-            modal.style.display = 'none'; 
-            spinner.style.display = 'block'; 
-            
-            setTimeout(() => {
-                spinner.style.display = 'none'; 
-                finalMessage.style.display = 'block'; 
-            }, 3000);
-        });
-        document.getElementById('noButton').addEventListener('click', function() {
-            const modal = document.getElementById('modalChoice');
-            const spinner = document.querySelector('.spinner-border');
-            const yesText = document.querySelector('.yesText');
-            
-            modal.style.display = 'none'; 
-            spinner.style.display = 'block'; 
-            
-            setTimeout(() => {
-                spinner.style.display = 'none'; 
-                yesText.style.display = 'block'; 
-            }, 3000);
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    // 오늘 날짜를 가져오는 함수
+    function getTodayDate() {
+        const today = new Date();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        return `${month}/${day}`;
+    }
+
+   
+    function checkBirthday() {
+        const birthday = '4/12'; 
+        const today = getTodayDate();
+        if (today === birthday) {
+            document.getElementById('yesButton').addEventListener('click', function() {
+                showFinalMessage('.yesText');
+            });
+            document.getElementById('noButton').addEventListener('click', function() {
+                showFinalMessage('.noText');
+            });
+        } else {
+            document.getElementById('yesButton').addEventListener('click', function() {
+                showSpinner('.yesyes');
+            });
+            document.getElementById('noButton').addEventListener('click', function() {
+                showSpinner('.nono');
+            });
+        }
+    }
+
+    function showSpinner(finalMessageSelector) {
+        const modal = document.getElementById('modalChoice');
+        const spinner = document.querySelector('.spinner-border');
+        modal.style.display = 'none'; 
+        spinner.style.display = 'block'; 
+        setTimeout(() => {
+            spinner.style.display = 'none'; 
+            document.querySelector(finalMessageSelector).style.display = 'block'; 
+        }, 3000);
+    }
+
+
+    function showFinalMessage(finalMessageSelector) {
+        const modal = document.getElementById('modalChoice');
+        modal.style.display = 'none'; 
+        document.querySelector(finalMessageSelector).style.display = 'block'; 
+    }
+
+    checkBirthday(); 
+});
 
     </script>
 
